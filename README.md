@@ -304,6 +304,8 @@ Analogicznie można definiować wszystkie poznane typy zmiennych (nawet te prost
 
 ## **Zadania do samodzielnego wykonania**
 
+Zdefiniuj strukturę punktu o całkowitych współrzędnych `x` i `y`. Wczytaj dwa punkty o współrzędnych od `-1000` do `1000` i oblicz ich odległość miejską: `|x1-x2| + |y1-y2|`. Wykorzystaj funkcję przyjmującą dwie struktury.
+
 ### Projekt: system ewidencji ligi piłkarskiej
 
 System przechowuje piłkarzy, drużyny, mecze i jedną ligę. Piłkarz ma imię, nazwisko, wiek i kategorię wiekową. Drużyna ma nazwę, kategorię i listę swoich piłkarzy. Mecz łączy dwie drużyny; może być zaplanowany, rozegrany albo odwołany. Liga gromadzi drużyny z jednej kategorii oraz ich mecze.
