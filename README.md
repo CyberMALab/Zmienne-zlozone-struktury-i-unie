@@ -62,7 +62,7 @@ Zmiennej złożonej *struct*, można nadać wartości początkowe. Jest to bardz
 
 ```
 /* point.x=3.23 point.y=5.33 */
-struct punkt point{3.23,5.33};
+struct punkt point = {3.23f,5.33f};
 ```
 
 ## **Unie**
@@ -157,6 +157,8 @@ Teraz przykład praktyczny. Bowiem zmienne wyliczeniowe można używać w instru
 
 
 ```
+#include <stdio.h>
+
 enum COLORS{COL_WHITE,COL_RED,COL_BLUE, COL_YELLOW, COL_BLACK };
 enum BOOL{FALSE, TRUE};
 struct rectangle
@@ -165,7 +167,7 @@ struct rectangle
 	float height, width;
 	enum COLORS color;
 };
-enum BOOL  it_ is_yellow_rectangle(struct rectangle rectangle_object)
+enum BOOL  it_is_yellow_rectangle(struct rectangle rectangle_object)
 {
 	if(rectangle_object.color==COL_YELLOW)
 		return TRUE;
@@ -185,13 +187,15 @@ int main()
 *Przykład (11.7.2) kod bez typu wyliczeniowego*
 
 ```
+#include <stdio.h>
+
 struct rectangle
 {
 	float coordinates_x, coordinates_y;
 	float height, width;
 	int color;
 };
-int  it_ is_yellow_rectangle(struct rectangle rectangle_object)
+int  it_is_yellow_rectangle(struct rectangle rectangle_object)
 {
 	if(rectangle_object.color==3)
 		return 1;
@@ -299,14 +303,23 @@ void wyswietl_punkt(punkt pkt)
 Analogicznie można definiować wszystkie poznane typy zmiennych (nawet te proste).
 
 ## **Zadania do samodzielnego wykonania**
-1. Stwórz projekt obejmujący:
-	1. Stwórz następujące struktury: piłkarz, drużyna, mecz, liga, które pozwoliłyby stworzyć funkcjonalny system ewidencji ligii.
-	2. Do struktur powyżej dodaj kategorie piłkarza odnośnie do wieku: TRAMPKARZ, JUNIOR, SENIOR w zależności od wieku. Uzyj typu wyliczeniowego.
-	3. Rozwiń program aby móc ewidencjonować piłkarzy przy pomocy menu (dodaj, edytuj, usuń).
-	4. Rozwiń program aby móc ewidencjonować drużyny przy pomocy menu (dodaj piłkarza, usuń piłkarza)
-	5. Rozwiń program aby móc tworzyć mecze pomiędzy drużynami i je rozsrzygać (utwórz mecz, rozstrzygnij mecz, odwołaj mecz). Użyj  typu wyliczeniowego (WYGRANA, PRZEGRANA, REMIS)
-	6. Rozwiń program aby móc tworzyć ligi, z losowaniem meczy oraz wyświetlaniem wyników. Zadbaj o to aby w lidze mogli grać tylko zawodnicy z danej grupy wiekowej.
 
+### Projekt: system ewidencji ligi piłkarskiej
+
+System przechowuje piłkarzy, drużyny, mecze i jedną ligę. Piłkarz ma imię, nazwisko, wiek i kategorię wiekową. Drużyna ma nazwę, kategorię i listę swoich piłkarzy. Mecz łączy dwie drużyny; może być zaplanowany, rozegrany albo odwołany. Liga gromadzi drużyny z jednej kategorii oraz ich mecze.
+
+Na potrzeby zadania przyjmij trzy kategorie: TRAMPKARZ (10–14 lat), JUNIOR (15–18 lat) i SENIOR (od 19 lat). Program ma obsługiwać najwyżej 20 piłkarzy, 4 drużyny i 6 meczów. W jednej drużynie może grać najwyżej 5 piłkarzy. Użyj tablic o stałym rozmiarze; nie jest tu potrzebna dynamiczna alokacja pamięci.
+
+Wykonuj kolejne etapy, rozbudowując ten sam program:
+
+1. Zdefiniuj typ wyliczeniowy kategorii wiekowych oraz struktury `pilkarz` i `druzyna`. Dodaj jednego piłkarza i jedną drużynę w kodzie, a następnie wypisz ich dane. Kategorię piłkarza ustalaj na podstawie wieku.
+2. Zdefiniuj strukturę `mecz` i typ wyliczeniowy jego stanu: ZAPLANOWANY, ROZEGRANY, ODWOLANY. W strukturze użyj unii, która przechowuje albo wynik meczu (liczbę goli obu drużyn), albo powód odwołania. Stan meczu określa, które pole unii należy odczytać. Utwórz po jednym przykładzie meczu rozegranego i odwołanego, a następnie wypisz właściwe dane.
+3. Dodaj menu do ewidencji piłkarzy: dodawanie, edycję i usuwanie. Nie przekraczaj limitu 20 osób. Piłkarza przypisanego do drużyny można usunąć dopiero po usunięciu go z tej drużyny.
+4. Dodaj tworzenie drużyn oraz dopisywanie i usuwanie piłkarzy z drużyny. Piłkarz może należeć do jednej drużyny i musi mieć tę samą kategorię wiekową co ona. Nie przekraczaj limitu 4 drużyn ani 5 piłkarzy w każdej z nich.
+5. Dodaj tworzenie meczu między dwiema różnymi drużynami, wpisanie jego wyniku oraz odwołanie z podaniem powodu. Po wpisaniu wyniku określ rezultat pierwszej drużyny za pomocą typu wyliczeniowego WYGRANA, PRZEGRANA, REMIS. Nie rozgrywaj ani nie odwołuj ponownie meczu, który ma już ustalony stan końcowy.
+6. Zdefiniuj strukturę `liga` i utwórz ligę dla jednej wybranej kategorii. Mogą do niej należeć tylko drużyny z tej kategorii. Utwórz po jednym meczu dla każdej pary drużyn, bez powtórzeń; przy 4 drużynach będzie ich 6. Wylosuj kolejność tych meczów za pomocą `rand()` z `<stdlib.h>`. Wyświetl listę meczów oraz wyniki rozegranych spotkań.
+
+W gotowym systemie użytkownik powinien móc kolejno dodać piłkarzy i drużyny, przypisać piłkarzy do drużyn, utworzyć ligę, wygenerować mecze, rozstrzygnąć albo odwołać każdy mecz oraz obejrzeć terminarz i wyniki. Przy każdej operacji sprawdzaj limity tablic i zgodność kategorii wiekowych.
 
 ***
 [Poprzednia część](https://github.com/CyberMALab/Tablice-znakow.git) | [Spis treści](https://github.com/CyberMALab/Wprowadzenie-do-programowania-w-j-zyku-ANSI-C.git) | [Następna część](https://github.com/CyberMALab/Wprowadzenie-do-wskaznikow.git)
